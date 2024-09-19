@@ -12,15 +12,21 @@ void setup() {
 }
 
 void loop() {
-    if (Serial.available() > 0) {
-    // Ler o valor recebido via Serial
+  if (Serial.available() > 0) {
     float rawValue = Serial.parseFloat();
-    
-    // Aplicar o filtro passa-baixa
-    float filteredValue = previous_filtered_val + alpha * (rawValue - previous_filtered_val);
-    previous_filtered_val = filteredValue;
 
-    // Enviar o valor filtrado de volta via Serial
-    Serial.println(filteredValue);
+    if (Serial.read() == '\n') {
+      // Aplicar o filtro passa-baixa
+      float filteredValue = previous_filtered_val + alpha * (rawValue - previous_filtered_val);
+      previous_filtered_val = filteredValue;
+
+      Serial.print(filteredValue, 6);  // Enviar com precisão de 6 casas decimais
+      Serial.print(",");
+      Serial.println(0.0, 6);  // Enviar parte imaginária como 0.0
+      Serial.flush();
+    }
   }
+  
+  // Pequeno atraso para evitar sobrecarga da CPU
+  delay(10);
 }
