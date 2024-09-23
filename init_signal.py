@@ -74,32 +74,43 @@ def transmit_receive_fft_data(signal, port='/dev/ttyACM0', baudrate=115200):  # 
     # Plotar os resultados
     plt.figure()
     
-    plt.subplot(5, 1, 1)
+    plt.subplot(6, 1, 1)
     plt.plot(noisy_signal, label='Sinal Original com Ruído')
     plt.legend()
+
+    plt.subplot(6, 1, 2)
+    plt.plot(noisy_signal, label='Sinal original com ruído ampliado')
+    plt.xlim(1900, 2000)
+    plt.legend()
     
-    plt.subplot(5, 1, 2)
+    plt.subplot(6, 1, 3)
     plt.plot(fft_result, label='FFT Original')
     plt.ylim(1500, 2200)
     plt.legend()
     
-    plt.subplot(5, 1, 3)
+    plt.subplot(6, 1, 4)
     plt.plot(np.abs(radix2_fft(filtered_values)), label='FFT Filtrada')
     plt.ylim(1500, 2200)
     plt.legend()
 
-    plt.subplot(5, 1, 4)
+    plt.subplot(6, 1, 5)
     plt.plot(filtered_values, label='Sinal Filtrado')
     plt.legend()
 
-    plt.show()
+    plt.subplot(6, 1, 6)
+    plt.plot(filtered_values, label='Sinal Filtrado ampliado')
+    plt.xlim(1900, 2000)
+    plt.legend()
 
+
+    plt.show()
+    
     plot_amplitude_vs_frequency(filtered_values, 1024)
 
 
 # Exemplo de uso
 # definir a frequencia de amostragem
-freq_a = 1024
+freq_a = 2048
 n_amostras = 4096
 periodo= 1/freq_a
 t = np.arange(0, periodo * n_amostras, periodo)

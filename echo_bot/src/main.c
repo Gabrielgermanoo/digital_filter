@@ -106,8 +106,6 @@ int main(void)
 	print_uart("Tell me something and press enter:\r\n");
 
 	/* indefinitely wait for input from the user */
-	uint8_t i=0;
-	uint8_t samples[10];
 	double previous_filtered_val_2 = 0.0;
 
 	while (k_msgq_get(&uart_msgq, &tx_buf, K_FOREVER) == 0) {
